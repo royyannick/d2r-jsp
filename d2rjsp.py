@@ -65,7 +65,7 @@ def get_threads_df(start_id, start_id_offset=0, nb_thread=1000, season="Season 3
 
         if cur_id % 1000 == 0:
             df_threads_temp = pd.DataFrame(threads)
-            df_threads_temp.to_csv(f'd2r_threads_{season}_{(start_id + start_id_offset)}_{cur_id}.csv', index=False)
+            df_threads_temp.to_csv(f'./data/d2r_threads_{season}_{(start_id + start_id_offset)}_{cur_id}.csv', index=False)
 
     df_threads = pd.DataFrame(threads)
     return df_threads
@@ -183,12 +183,12 @@ with st.sidebar:
         my_bar = st.progress(0, text='Fetching threads...')
         if from_file:
             try:
-                df_threads = pd.read_csv(f'd2r_threads_{season_selected}.csv', nrows=nb_threads, index_col=None)
+                df_threads = pd.read_csv(f'./data/d2r_threads_{season_selected}.csv', nrows=nb_threads, index_col=None)
             except:
                 st.error("Can't open the file.")
         else:
             df_threads = get_threads_df(start_id=SEASONS_STARTING_POST_ID[season_selected], start_id_offset=0, nb_thread=nb_threads, season=season_selected, progress_bar=my_bar)
-            df_threads.to_csv(f'd2r_threads_{season_selected}.csv', index=False)
+            df_threads.to_csv(f'./data/d2r_threads_{season_selected}.csv', index=False)
 
         if 'time' in df_threads.columns:
             df_threads['time'] = pd.to_datetime(df_threads['time'])  # , format='%b %d %Y %I:%M%p')

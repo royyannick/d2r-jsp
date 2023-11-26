@@ -2,3 +2,4 @@ streamlit
 logging
 pandas
 bs4
+plotly
